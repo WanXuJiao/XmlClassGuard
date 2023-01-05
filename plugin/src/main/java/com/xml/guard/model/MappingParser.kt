@@ -43,10 +43,10 @@ object MappingParser {
                     if ("R" == obfuscateClassName) {
                         throw IllegalArgumentException("`$obfuscateName` is illegal, R cannot be defined as a class name")
                     }
-                    if (!UPPERCASE_PATTERN.matcher(obfuscateClassName).find()) {
-                        //混淆的类名必须要大写
-                        throw IllegalArgumentException("`$obfuscateName` is illegal, Obfuscation class name must be capitalized")
-                    }
+//                    if (!UPPERCASE_PATTERN.matcher(obfuscateClassName).find()) {
+//                        //混淆的类名必须要大写
+//                        throw IllegalArgumentException("`$obfuscateName` is illegal, Obfuscation class name must be capitalized")
+//                    }
                     val dirMapping = mapping.dirMapping
                     if (!dirMapping.containsValue(obfuscateClassPath)) {
                         val rawClassPath = rawName.substring(0, rawName.lastIndexOf(".")) //原始包名
