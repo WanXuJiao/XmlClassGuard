@@ -46,6 +46,8 @@ open class XmlClassGuardTask @Inject constructor(
         //3、替换Java/kotlin文件里引用到的类
         if (classMapping.isNotEmpty()) {
             androidProjects.forEach { replaceJavaText(it, classMapping) }
+        } else {
+            System.out.println("> ProjectGuard: classMapping is empty")
         }
         //4、混淆映射写出到文件
         mapping.writeMappingToFile(mappingFile)
@@ -97,6 +99,7 @@ open class XmlClassGuardTask @Inject constructor(
 
     private fun replaceJavaText(project: Project, mapping: Map<String, String>) {
         val javaDir = project.javaDir()
+        System.out.println("> ProjectGuard: replaceJavaText javaDir="+javaDir)
         //遍历所有Java\Kt文件，替换混淆后的类的引用，import及new对象的地方
         project.files(javaDir).asFileTree.forEach { javaFile ->
             var replaceText = javaFile.readText()

@@ -61,6 +61,7 @@ class Mapping {
             val locationProject = project.findLocationProject(rawDir)
             if (locationProject == null) {
                 iterator.remove()
+                System.out.println("> ProjectGuard: locationProject not found $rawDir")
                 continue
             }
             //去除目录的直接子文件
@@ -97,8 +98,10 @@ class Mapping {
         if (obfuscateClassPath == null) {
             val rawPackage = rawClassPath.getDirPath()
             val obfuscatePackage = obfuscatePackage(rawPackage)
-            obfuscateClassPath = "$obfuscatePackage.${generateObfuscateClassName()}"
-            classMapping[rawClassPath] = obfuscateClassPath
+            val className = rawClassPath.replace("$rawPackage.","")
+            // 此处混淆包名时不再混淆其下包含的类的类名，所以将返回混淆类名改为直接返回原类名
+            obfuscateClassPath = "$obfuscatePackage.${className}"
+//            classMapping[rawClassPath] = obfuscateClassPath
         }
         return obfuscateClassPath
     }
